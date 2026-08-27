@@ -24,7 +24,7 @@ export function HeroCarousel() {
           <Image
             key={photo.src}
             src={photo.src}
-            alt={`Áo tay dài cổ tim M.A.S Closet màu ${photo.colorLabel}`}
+            alt={`Áo tay dài cổ tim M.A.S Clothes màu ${photo.colorLabel}`}
             fill
             priority={i === 0}
             sizes="(min-width: 640px) 420px, 320px"

@@ -33,7 +33,7 @@ export function TrustBadges() {
     <section className="bg-paper-alt px-5 py-12 sm:px-8">
       <div className="mx-auto max-w-3xl">
         <h2 className="mb-8 text-center font-display text-3xl font-semibold text-ink">
-          Cam Kết Từ M.A.S Closet
+          Cam Kết Từ M.A.S Clothes
         </h2>
         <div className="grid gap-3 sm:grid-cols-3">
           {ITEMS.map(({ icon: Icon, title, desc }) => (

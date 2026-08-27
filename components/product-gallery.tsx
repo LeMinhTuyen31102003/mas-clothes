@@ -18,7 +18,7 @@ export function ProductGallery() {
               <div className="relative aspect-[3/4]">
                 <Image
                   src={item.src}
-                  alt={`Áo tay dài cổ tim M.A.S Closet màu ${item.colorLabel}`}
+                  alt={`Áo tay dài cổ tim M.A.S Clothes màu ${item.colorLabel}`}
                   fill
                   sizes="(min-width: 640px) 33vw, 90vw"
                   className="object-cover"

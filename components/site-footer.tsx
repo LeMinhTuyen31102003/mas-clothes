@@ -43,7 +43,7 @@ export function SiteFooter() {
         </div>
 
         <div className="mt-5 h-px bg-charcoal-soft" />
-        <p className="mt-4 text-[11px] text-[#8A7F76]">© 2026 M.A.S Closet. Bảo lưu mọi quyền.</p>
+        <p className="mt-4 text-[11px] text-[#8A7F76]">© 2026 M.A.S Clothes. Bảo lưu mọi quyền.</p>
       </div>
     </footer>
   );

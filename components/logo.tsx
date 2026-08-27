@@ -61,7 +61,7 @@ export function Logo({ size = 40, withWordmark = true, tone = "accent", classNam
       <LogoMark size={size} tone={tone} />
       {withWordmark && (
         <span className={`font-display font-semibold tracking-wide ${wordColor}`} style={{ fontSize: size * 0.5 }}>
-          M.A.S <em className={`italic font-medium ${scriptColor}`}>Closet</em>
+          M.A.S <em className={`italic font-medium ${scriptColor}`}>Clothes</em>
         </span>
       )}
     </div>

@@ -16,7 +16,7 @@ const cormorantGaramond = Cormorant_Garamond({
 });
 
 export const metadata: Metadata = {
-  title: "M.A.S Closet — Thời Trang Nữ Tôn Dáng",
+  title: "M.A.S Clothes — Thời Trang Nữ Tôn Dáng",
   description:
     "Áo tay dài cổ tim basic, chất liệu cao cấp, chuẩn form dáng phái đẹp Việt. Mua 3 áo chỉ 390.000đ, freeship toàn quốc, kiểm tra hàng trước khi thanh toán (COD).",
 };

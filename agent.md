@@ -1,7 +1,7 @@
-# Product Requirements Document (PRD): Landing Page - M.A.S Closet
+# Product Requirements Document (PRD): Landing Page - M.A.S Clothes
 
 ## 1. Project Overview
-Build a high-converting, mobile-first, lightweight Landing Page for local brand **M.A.S Closet**, optimized for fast loading and Core Web Vitals.
+Build a high-converting, mobile-first, lightweight Landing Page for local brand **M.A.S Clothes**, optimized for fast loading and Core Web Vitals.
 The core goal is to showcase the fashion product (Áo dài / thời trang nữ), promote combo pricing tiers, and process direct orders sent to Gmail.
 
 ## 2. Technical Stack & Architecture
@@ -16,7 +16,7 @@ The core goal is to showcase the fashion product (Áo dài / thời trang nữ),
 ## 3. Brand & Pricing Configuration
 
 ### Brand Information:
-- **Brand Name:** M.A.S Closet
+- **Brand Name:** M.A.S Clothes
 - **Style:** Modern, elegant, clean local brand aesthetic (soft tones, minimalist typography).
 
 ### Promotional Pricing Strategy (Combo Tiers):
@@ -27,7 +27,7 @@ The core goal is to showcase the fashion product (Áo dài / thời trang nữ),
 ## 4. Key Features & Page Structure
 
 ### A. Hero & Product Section
-- **Brand Identity:** Prominent "M.A.S Closet" branding and slogan.
+- **Brand Identity:** Prominent "M.A.S Clothes" branding and slogan.
 - **Highlight Promo Badges:** Visual comparison table/cards showing the 3 pricing tiers (emphasizing Free Ship on 2+ items).
 - **Product Gallery:** High-resolution product images, close-ups of fabric/stitching, size guide chart.
 - **Trust Elements:** Cam kết đổi trả nếu lỗi, kiểm tra hàng trước khi thanh toán (COD), cam kết chuẩn form dáng.

@@ -46,7 +46,7 @@ export function OrderForm() {
           Thông Tin Đặt Hàng
         </h2>
         <p className="mb-7 text-center text-[12.5px] text-ink-muted">
-          Điền thông tin, M.A.S Closet sẽ gọi xác nhận trước khi giao hàng
+          Điền thông tin, M.A.S Clothes sẽ gọi xác nhận trước khi giao hàng
         </p>
 
         <form action={formAction} className="flex flex-col gap-5">
@@ -210,7 +210,7 @@ export function OrderForm() {
             <CheckCircle2 size={44} className="mx-auto mb-4 text-accent-dark" strokeWidth={1.6} />
             <h3 className="mb-2 font-display text-2xl font-semibold text-ink">Đặt Hàng Thành Công!</h3>
             <p className="text-[13.5px] leading-relaxed text-ink-muted">
-              Cảm ơn bạn đã tin chọn M.A.S Closet. Chúng tôi sẽ gọi xác nhận đơn hàng trong thời gian sớm nhất.
+              Cảm ơn bạn đã tin chọn M.A.S Clothes. Chúng tôi sẽ gọi xác nhận đơn hàng trong thời gian sớm nhất.
             </p>
             <button
               type="button"

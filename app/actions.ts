@@ -49,14 +49,18 @@ export async function submitOrder(
     .map((v, i) => `Áo ${i + 1}: Size ${v.size} — Màu ${v.color}`)
     .join("<br/>");
 
+  const orderCode = Date.now().toString(36).toUpperCase();
+  const receivedAt = new Date().toLocaleString("vi-VN", { timeZone: "Asia/Ha_Noi" });
+
   try {
     const resend = new Resend(apiKey);
     await resend.emails.send({
-      from: "M.A.S Closet <onboarding@resend.dev>",
+      from: "M.A.S Clothes <onboarding@resend.dev>",
       to: process.env.ADMIN_EMAIL || "hoangsondz2003@gmail.com",
-      subject: `Đơn hàng mới — ${order.fullName} — ${combo.label}`,
+      subject: `[#${orderCode}] ${order.fullName} — ${order.phone} — ${combo.label}`,
       html: `
-        <h2>Đơn hàng mới từ M.A.S Closet</h2>
+        <h2>Đơn hàng mới từ M.A.S Clothes</h2>
+        <p><strong>Mã đơn:</strong> #${orderCode} &nbsp; <strong>Thời gian:</strong> ${receivedAt}</p>
         <p><strong>Khách hàng:</strong> ${order.fullName}</p>
         <p><strong>Số điện thoại:</strong> ${order.phone}</p>
         <p><strong>Địa chỉ nhận hàng:</strong> ${order.address}</p>
