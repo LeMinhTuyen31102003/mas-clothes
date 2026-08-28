@@ -1,12 +1,23 @@
 "use client";
 
-import { useActionState, useEffect, useState } from "react";
+import { useActionState, useEffect, useRef, useState } from "react";
 import { ChevronDown, MapPin, Phone, User, CheckCircle2, X } from "lucide-react";
 import { submitOrder } from "@/app/actions";
-import { initialOrderFormState } from "@/lib/order-state";
+import { initialOrderFormState, type OrderFieldErrors } from "@/lib/order-state";
 import { COLORS, COMBOS, SIZES, formatVND, type ColorId, type ComboKey, type Size } from "@/lib/pricing";
 
 type Variant = { size: Size; color: ColorId };
+
+const FIELD_ORDER: (keyof OrderFieldErrors)[] = ["fullName", "phone", "address", "variants"];
+
+const inputBase =
+  "h-12 w-full rounded-lg border bg-paper pl-10 pr-3.5 text-[13.5px] text-ink placeholder:text-ink-faint focus:outline-none";
+const textareaBase =
+  "w-full resize-none rounded-lg border bg-paper py-3 pl-10 pr-3.5 text-[13.5px] text-ink placeholder:text-ink-faint focus:outline-none";
+
+function borderClass(hasError: boolean) {
+  return hasError ? "border-red-400 focus:border-red-500" : "border-line focus:border-accent";
+}
 
 function buildVariants(qty: number, prev: Variant[]): Variant[] {
   const next = [...prev];
@@ -23,12 +34,28 @@ export function OrderForm() {
   const [variants, setVariants] = useState<Variant[]>(() => buildVariants(COMBOS["2"].qty, []));
   const [dismissed, setDismissed] = useState(false);
 
+  const fullNameRef = useRef<HTMLInputElement>(null);
+  const phoneRef = useRef<HTMLInputElement>(null);
+  const addressRef = useRef<HTMLTextAreaElement>(null);
+  const variantsRef = useRef<HTMLDivElement>(null);
+
   const combo = COMBOS[comboKey];
   const showSuccess = state.success && !dismissed;
+  const fieldErrors = state.fieldErrors;
 
   useEffect(() => {
     if (isPending) setDismissed(false);
   }, [isPending]);
+
+  useEffect(() => {
+    if (!fieldErrors) return;
+    const refs = { fullName: fullNameRef, phone: phoneRef, address: addressRef, variants: variantsRef };
+    const firstInvalid = FIELD_ORDER.find((key) => fieldErrors[key]);
+    if (!firstInvalid) return;
+    const target = refs[firstInvalid].current;
+    target?.scrollIntoView({ behavior: "smooth", block: "center" });
+    if (target instanceof HTMLElement && "focus" in target) target.focus();
+  }, [fieldErrors]);
 
   function handleComboChange(key: ComboKey) {
     setComboKey(key);
@@ -49,46 +76,47 @@ export function OrderForm() {
           Điền thông tin, M.A.S Clothes sẽ gọi xác nhận trước khi giao hàng
         </p>
 
-        <form action={formAction} className="flex flex-col gap-5">
+        <form action={formAction} noValidate className="flex flex-col gap-5">
           <input type="hidden" name="combo" value={comboKey} />
           <input type="hidden" name="variants" value={JSON.stringify(variants)} />
 
-          <Field label="Họ và tên">
+          <Field label="Họ và tên" error={fieldErrors?.fullName}>
             <div className="relative">
               <User size={16} strokeWidth={1.7} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-ink-faint" />
               <input
+                ref={fullNameRef}
                 name="fullName"
-                required
-                minLength={2}
                 placeholder="Nguyễn Thị A"
-                className="h-12 w-full rounded-lg border border-line bg-paper pl-10 pr-3.5 text-[13.5px] text-ink placeholder:text-ink-faint focus:border-accent focus:outline-none"
+                aria-invalid={!!fieldErrors?.fullName}
+                className={`${inputBase} ${borderClass(!!fieldErrors?.fullName)}`}
               />
             </div>
           </Field>
 
-          <Field label="Số điện thoại">
+          <Field label="Số điện thoại" error={fieldErrors?.phone}>
             <div className="relative">
               <Phone size={16} strokeWidth={1.7} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-ink-faint" />
               <input
+                ref={phoneRef}
                 name="phone"
                 type="tel"
-                required
                 placeholder="09xx xxx xxx"
-                className="h-12 w-full rounded-lg border border-line bg-paper pl-10 pr-3.5 text-[13.5px] text-ink placeholder:text-ink-faint focus:border-accent focus:outline-none"
+                aria-invalid={!!fieldErrors?.phone}
+                className={`${inputBase} ${borderClass(!!fieldErrors?.phone)}`}
               />
             </div>
           </Field>
 
-          <Field label="Địa chỉ nhận hàng">
+          <Field label="Địa chỉ nhận hàng" error={fieldErrors?.address}>
             <div className="relative">
               <MapPin size={16} strokeWidth={1.7} className="absolute left-3.5 top-3.5 text-ink-faint" />
               <textarea
+                ref={addressRef}
                 name="address"
-                required
-                minLength={8}
                 rows={2}
                 placeholder="Số nhà, đường, phường/xã, quận/huyện, tỉnh/thành"
-                className="w-full resize-none rounded-lg border border-line bg-paper py-3 pl-10 pr-3.5 text-[13.5px] text-ink placeholder:text-ink-faint focus:border-accent focus:outline-none"
+                aria-invalid={!!fieldErrors?.address}
+                className={`${textareaBase} ${borderClass(!!fieldErrors?.address)}`}
               />
             </div>
           </Field>
@@ -112,8 +140,8 @@ export function OrderForm() {
             </div>
           </Field>
 
-          <Field label="Size & màu sắc cho từng áo">
-            <div className="flex flex-col gap-2">
+          <Field label="Size & màu sắc cho từng áo" error={fieldErrors?.variants}>
+            <div ref={variantsRef} tabIndex={-1} className="flex flex-col gap-2 outline-none">
               {variants.map((variant, i) => (
                 <div key={i} className="flex items-center gap-2">
                   <span className="w-11 flex-none text-[11.5px] text-ink-faint">Áo {i + 1}</span>
@@ -226,11 +254,16 @@ export function OrderForm() {
   );
 }
 
-function Field({ label, children }: Readonly<{ label: string; children: React.ReactNode }>) {
+function Field({
+  label,
+  error,
+  children,
+}: Readonly<{ label: string; error?: string; children: React.ReactNode }>) {
   return (
     <label className="block">
       <span className="mb-1.5 block text-xs font-semibold text-ink">{label}</span>
       {children}
+      {error && <span className="mt-1.5 block text-[11.5px] text-red-600">{error}</span>}
     </label>
   );
 }

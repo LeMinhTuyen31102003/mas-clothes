@@ -35,7 +35,7 @@ export function CountdownBanner() {
     <div className="flex items-center justify-center gap-2 bg-accent-dark px-4 py-2.5 text-center text-xs font-semibold tracking-wide text-white sm:text-sm">
       <Zap size={14} className="flex-none fill-amber-200 text-amber-200 animate-pulse" />
       <span>
-        ƯU ĐÃI HÔM NAY — Mua 3 áo chỉ 390.000đ, freeship
+        ƯU ĐÃI HÔM NAY — Mua 3 áo chỉ 288.000đ, freeship
         {seconds !== null && (
           <>
             {" "}

@@ -20,9 +20,9 @@ The core goal is to showcase the fashion product (Áo dài / thời trang nữ),
 - **Style:** Modern, elegant, clean local brand aesthetic (soft tones, minimalist typography).
 
 ### Promotional Pricing Strategy (Combo Tiers):
-- **Combo 1:** Mua 1 áo: `139.000đ` + `20.000đ ship` = **159.000đ**
-- **Combo 2:** Mua 2 áo: `139.000đ/c` = **278.000đ** (Miễn phí vận chuyển)
-- **Combo 3 (Best Deal):** Mua 3 áo: Tổng **390.000đ** (Miễn phí vận chuyển - Tiết kiệm nhất)
+- **Combo 1:** Mua 1 áo: `99.000đ` + `30.000đ ship` = **129.000đ**
+- **Combo 2:** Mua 2 áo: `99.000đ/c` = **199.000đ** (Miễn phí vận chuyển)
+- **Combo 3 (Best Deal):** Mua 3 áo: `99.000đ/c` = **288.000đ** (Miễn phí vận chuyển - Tiết kiệm nhất)
 
 ## 4. Key Features & Page Structure
 
