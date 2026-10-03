@@ -40,6 +40,9 @@ body {
 }
 
 .btn-buy {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -48,10 +51,10 @@ body {
   padding: 0.7rem 1.2rem;
   border: 0;
   border-radius: 14px;
-  background: linear-gradient(180deg, #ff7a32 0%, #ff3d14 46%, #e10600 100%);
+  background: linear-gradient(180deg, #ffb020 0%, #ff6a1a 28%, #ff2d12 68%, #d10a00 100%);
   color: #fff;
   font-weight: 800;
-  font-size: 15px;
+  font-size: 16px;
   letter-spacing: 0.04em;
   line-height: 1.15;
   text-align: center;
@@ -59,10 +62,31 @@ body {
   cursor: pointer;
   box-shadow:
     0 4px 0 #8e100b,
-    0 12px 26px rgba(225, 6, 0, 0.38);
+    0 14px 28px rgba(225, 6, 0, 0.42);
+  animation: buy-pulse 1.25s ease-in-out infinite;
   transition:
     transform 0.15s ease,
     filter 0.15s ease;
+}
+
+.btn-buy::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(105deg, transparent 32%, rgba(255, 255, 255, 0.55) 50%, transparent 68%);
+  transform: translateX(-130%);
+  animation: buy-shine 2s ease-in-out infinite;
+}
+
+.btn-buy-lg {
+  min-height: 4.6rem;
+  padding: 0.85rem 1.35rem;
+  border-radius: 16px;
+  font-size: 18px;
+  box-shadow:
+    0 5px 0 #8e100b,
+    0 18px 36px rgba(225, 6, 0, 0.5);
 }
 
 .btn-buy:hover {
@@ -81,4 +105,87 @@ body {
   cursor: not-allowed;
   opacity: 0.65;
   transform: none;
+  animation: none;
+}
+
+.fire {
+  position: relative;
+  display: inline-block;
+  width: 34px;
+  height: 40px;
+  flex: none;
+}
+
+.fire-glow {
+  position: absolute;
+  left: 50%;
+  bottom: -2px;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 196, 40, 0.95) 0%, rgba(255, 90, 0, 0.45) 42%, transparent 72%);
+  transform: translateX(-50%);
+  animation: fire-glow 0.42s ease-in-out infinite alternate;
+}
+
+.fire-tongue {
+  position: absolute;
+  bottom: 2px;
+  left: 50%;
+  width: 16px;
+  height: 28px;
+  border-radius: 50% 50% 46% 46%;
+  transform-origin: 50% 100%;
+  background: radial-gradient(circle at 50% 78%, #fff7c8 0%, #ffe14a 22%, #ff8a1e 52%, #ff2a00 78%, rgba(180, 10, 0, 0.15) 100%);
+  animation: blaze 0.36s ease-in-out infinite;
+}
+
+.fire-tongue-b {
+  width: 12px;
+  height: 22px;
+  margin-left: -11px;
+  animation-duration: 0.48s;
+  animation-delay: -0.16s;
+  background: radial-gradient(circle at 50% 80%, #fff1a8 0%, #ffb000 40%, #ff4d00 100%);
+}
+
+.fire-tongue-c {
+  width: 11px;
+  height: 20px;
+  margin-left: 7px;
+  animation-duration: 0.31s;
+  animation-delay: -0.08s;
+  background: radial-gradient(circle at 50% 75%, #fff 0%, #ffd24a 30%, #ff5a00 100%);
+}
+
+@keyframes blaze {
+  0% { transform: translateX(-50%) scale(1, 1) rotate(-6deg); }
+  30% { transform: translateX(-50%) scale(0.86, 1.22) rotate(7deg); }
+  55% { transform: translateX(-50%) scale(1.1, 0.9) rotate(-8deg); }
+  80% { transform: translateX(-50%) scale(0.92, 1.18) rotate(4deg); }
+  100% { transform: translateX(-50%) scale(1, 1) rotate(-6deg); }
+}
+
+@keyframes fire-glow {
+  from { opacity: 0.55; transform: translateX(-50%) scale(0.85); }
+  to { opacity: 1; transform: translateX(-50%) scale(1.2); }
+}
+
+@keyframes buy-pulse {
+  0%, 100% { box-shadow: 0 4px 0 #8e100b, 0 12px 24px rgba(225, 6, 0, 0.38); }
+  50% { box-shadow: 0 5px 0 #8e100b, 0 0 0 8px rgba(255, 140, 40, 0.28), 0 18px 34px rgba(225, 6, 0, 0.62); }
+}
+
+@keyframes buy-shine {
+  0%, 45% { transform: translateX(-130%); }
+  75%, 100% { transform: translateX(130%); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .btn-buy,
+  .btn-buy::after,
+  .fire-tongue,
+  .fire-glow {
+    animation: none;
+  }
 }

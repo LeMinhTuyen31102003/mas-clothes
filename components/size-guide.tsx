@@ -32,7 +32,7 @@ export function SizeGuide() {
           </div>
         </div>
         <p className="mt-3 text-center text-[11.5px] text-ink-faint">
-          Áo cổ cao và quần dài cùng một size. Combo 2 bộ được chọn size riêng cho áo tặng. Số đo mang tính tham khảo,
+          Chọn size cho từng áo. Combo 2 áo được chọn size riêng cho áo tặng. Số đo mang tính tham khảo,
           dáng người khác nhau có thể lệch nhẹ.
         </p>
       </div>

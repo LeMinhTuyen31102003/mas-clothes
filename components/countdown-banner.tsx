@@ -1,7 +1,17 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Flame } from "lucide-react";
+
+function Fire() {
+  return (
+    <span className="fire" aria-hidden="true">
+      <span className="fire-glow" />
+      <span className="fire-tongue" />
+      <span className="fire-tongue fire-tongue-b" />
+      <span className="fire-tongue fire-tongue-c" />
+    </span>
+  );
+}
 
 function getSecondsUntilMidnight(): number {
   const now = new Date();
@@ -44,12 +54,13 @@ export function CountdownBanner() {
     <div className="bg-sale text-white">
       <div className="mx-auto flex max-w-5xl flex-col items-center gap-3 px-4 py-3.5 sm:flex-row sm:justify-between sm:py-4">
         <div className="text-center sm:text-left">
-          <p className="flex items-center justify-center gap-1.5 text-[13px] font-extrabold tracking-wide sm:justify-start sm:text-[15px]">
-            <Flame size={16} className="fill-amber-300 text-amber-300" />
+          <p className="flex items-center justify-center gap-2 text-[13px] font-extrabold tracking-wide sm:justify-start sm:text-[15px]">
+            <Fire />
             ĐẠI TIỆC FLASH SALE — GIẢM SỐC HÔM NAY
+            <Fire />
           </p>
           <p className="mt-1 text-[12px] font-semibold text-white/92 sm:text-[13px]">
-            219K còn 139K · Combo 2 bộ 229K tặng 1 áo · Freeship
+            219K còn 139K · Combo 2 áo 229K tặng 1 áo · Freeship
           </p>
         </div>
         <div className="flex items-end gap-1.5" aria-label="Thời gian còn lại trong hôm nay">

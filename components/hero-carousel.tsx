@@ -42,7 +42,7 @@ export function HeroCarousel() {
           {active.caption}
         </div>
 
-        <div className="absolute bottom-4 right-4 flex gap-1.5">
+        <div className={`absolute bottom-4 right-4 flex gap-1.5 ${PRODUCT_PHOTOS.length < 2 ? "hidden" : ""}`}>
           {PRODUCT_PHOTOS.map((photo, i) => (
             <button
               key={photo.src}

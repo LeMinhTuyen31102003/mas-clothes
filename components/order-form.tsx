@@ -172,8 +172,8 @@ export function OrderForm() {
             </div>
           </Field>
 
-          <Field label="Size cho từng món" error={fieldErrors?.variants}>
-            <p className="mb-2 text-[12px] font-semibold text-ink-muted">Màu {COLORS[0].label} · áo và quần cùng size</p>
+          <Field label="Size cho từng áo" error={fieldErrors?.variants}>
+            <p className="mb-2 text-[12px] font-semibold text-ink-muted">Màu {COLORS[0].label}</p>
             <div ref={variantsRef} tabIndex={-1} className="flex flex-col gap-2 outline-none">
               {variants.map((variant, i) => (
                 <div key={i} className="flex items-center gap-2">
@@ -239,7 +239,7 @@ export function OrderForm() {
             <p className="rounded-lg bg-red-50 px-3.5 py-2.5 text-[12.5px] text-red-700">{state.error}</p>
           )}
 
-          <button type="submit" disabled={isPending} className="btn-buy w-full">
+          <button type="submit" disabled={isPending} className="btn-buy btn-buy-lg w-full">
             <span className="flex flex-col items-center leading-tight">
               <span>{isPending ? "ĐANG GỬI ĐƠN..." : "ĐẶT HÀNG NGAY"}</span>
               {!isPending && (
