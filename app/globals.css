@@ -108,67 +108,23 @@ body {
   animation: none;
 }
 
-.fire {
-  position: relative;
-  display: inline-block;
-  width: 34px;
-  height: 40px;
+.flame-float {
   flex: none;
+  animation: flame-float 1.8s ease-in-out infinite;
 }
 
-.fire-glow {
-  position: absolute;
-  left: 50%;
-  bottom: -2px;
-  width: 36px;
-  height: 36px;
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(255, 196, 40, 0.95) 0%, rgba(255, 90, 0, 0.45) 42%, transparent 72%);
-  transform: translateX(-50%);
-  animation: fire-glow 0.42s ease-in-out infinite alternate;
+.flame-float-late {
+  animation-delay: 0.45s;
 }
 
-.fire-tongue {
-  position: absolute;
-  bottom: 2px;
-  left: 50%;
-  width: 16px;
-  height: 28px;
-  border-radius: 50% 50% 46% 46%;
-  transform-origin: 50% 100%;
-  background: radial-gradient(circle at 50% 78%, #fff7c8 0%, #ffe14a 22%, #ff8a1e 52%, #ff2a00 78%, rgba(180, 10, 0, 0.15) 100%);
-  animation: blaze 0.36s ease-in-out infinite;
-}
-
-.fire-tongue-b {
-  width: 12px;
-  height: 22px;
-  margin-left: -11px;
-  animation-duration: 0.48s;
-  animation-delay: -0.16s;
-  background: radial-gradient(circle at 50% 80%, #fff1a8 0%, #ffb000 40%, #ff4d00 100%);
-}
-
-.fire-tongue-c {
-  width: 11px;
-  height: 20px;
-  margin-left: 7px;
-  animation-duration: 0.31s;
-  animation-delay: -0.08s;
-  background: radial-gradient(circle at 50% 75%, #fff 0%, #ffd24a 30%, #ff5a00 100%);
-}
-
-@keyframes blaze {
-  0% { transform: translateX(-50%) scale(1, 1) rotate(-6deg); }
-  30% { transform: translateX(-50%) scale(0.86, 1.22) rotate(7deg); }
-  55% { transform: translateX(-50%) scale(1.1, 0.9) rotate(-8deg); }
-  80% { transform: translateX(-50%) scale(0.92, 1.18) rotate(4deg); }
-  100% { transform: translateX(-50%) scale(1, 1) rotate(-6deg); }
-}
-
-@keyframes fire-glow {
-  from { opacity: 0.55; transform: translateX(-50%) scale(0.85); }
-  to { opacity: 1; transform: translateX(-50%) scale(1.2); }
+@keyframes flame-float {
+  0%,
+  100% {
+    transform: translateY(1px);
+  }
+  50% {
+    transform: translateY(-4px);
+  }
 }
 
 @keyframes buy-pulse {
@@ -184,8 +140,7 @@ body {
 @media (prefers-reduced-motion: reduce) {
   .btn-buy,
   .btn-buy::after,
-  .fire-tongue,
-  .fire-glow {
+  .flame-float {
     animation: none;
   }
 }
