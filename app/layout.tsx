@@ -17,9 +17,9 @@ const cormorantGaramond = Cormorant_Garamond({
 });
 
 export const metadata: Metadata = {
-  title: "M.A.S Clothes — Thời Trang Nữ Tôn Dáng",
+  title: "Flash Sale Bộ Giữ Nhiệt Nữ 139K | M.A.S Clothes",
   description:
-    "Áo tay dài cổ tim basic, chất liệu cao cấp, chuẩn form dáng phái đẹp Việt. Mua 3 áo chỉ 288.000đ, freeship toàn quốc, kiểm tra hàng trước khi thanh toán (COD).",
+    "Bộ giữ nhiệt nữ giá gốc 219.000đ, flash sale còn 139.000đ miễn phí ship. Combo 2 bộ 229.000đ tặng thêm 1 áo. Thanh toán khi nhận hàng.",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {

@@ -18,7 +18,7 @@ export const orderSchema = z.object({
     .string()
     .trim()
     .min(8, "Vui lòng nhập địa chỉ đầy đủ (số nhà, đường, phường/xã, quận/huyện, tỉnh/thành)"),
-  combo: z.enum(["1", "2", "3"]),
+  combo: z.enum(["1", "2"]),
   variants: z.array(variantSchema).min(1, "Vui lòng chọn size và màu"),
   note: z.string().optional(),
 });

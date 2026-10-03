@@ -24,6 +24,11 @@
   --color-accent-soft: #f7eeea;
   --color-accent-tint: #eed9d1;
 
+  --color-sale: #e10600;
+  --color-sale-deep: #9a120c;
+  --color-sale-hot: #ff5a1f;
+  --color-sale-soft: #fff1ee;
+
   --color-charcoal: #2b2320;
   --color-charcoal-soft: #3a322d;
 }
@@ -32,4 +37,48 @@ body {
   background: var(--background);
   color: var(--foreground);
   font-family: var(--font-sans), system-ui, -apple-system, sans-serif;
+}
+
+.btn-buy {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.45rem;
+  min-height: 3.7rem;
+  padding: 0.7rem 1.2rem;
+  border: 0;
+  border-radius: 14px;
+  background: linear-gradient(180deg, #ff7a32 0%, #ff3d14 46%, #e10600 100%);
+  color: #fff;
+  font-weight: 800;
+  font-size: 15px;
+  letter-spacing: 0.04em;
+  line-height: 1.15;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  box-shadow:
+    0 4px 0 #8e100b,
+    0 12px 26px rgba(225, 6, 0, 0.38);
+  transition:
+    transform 0.15s ease,
+    filter 0.15s ease;
+}
+
+.btn-buy:hover {
+  filter: brightness(1.06);
+  transform: translateY(-1px);
+}
+
+.btn-buy:active {
+  transform: translateY(2px);
+  box-shadow:
+    0 1px 0 #8e100b,
+    0 6px 14px rgba(225, 6, 0, 0.32);
+}
+
+.btn-buy:disabled {
+  cursor: not-allowed;
+  opacity: 0.65;
+  transform: none;
 }

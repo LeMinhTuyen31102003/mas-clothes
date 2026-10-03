@@ -2,7 +2,7 @@
 
 import { Resend } from "resend";
 import { orderSchema, type OrderInput } from "@/lib/schema";
-import { COMBOS, formatVND } from "@/lib/pricing";
+import { COLORS, COMBOS, formatVND, variantLineLabel } from "@/lib/pricing";
 import type { OrderFieldErrors, OrderFormState } from "@/lib/order-state";
 
 export async function submitOrder(
@@ -61,7 +61,10 @@ export async function submitOrder(
     }
 
     const variantLines = order.variants
-      .map((v, i) => `Áo ${i + 1}: Size ${v.size} — Màu ${v.color}`)
+      .map((v, i) => {
+        const color = COLORS.find((c) => c.id === v.color)?.label ?? v.color;
+        return `${variantLineLabel(order.combo, i)}: Size ${v.size} — Màu ${color}`;
+      })
       .join("<br/>");
 
     const orderCode = Date.now().toString(36).toUpperCase();
@@ -79,7 +82,7 @@ export async function submitOrder(
           <p><strong>Khách hàng:</strong> ${order.fullName}</p>
           <p><strong>Số điện thoại:</strong> ${order.phone}</p>
           <p><strong>Địa chỉ nhận hàng:</strong> ${order.address}</p>
-          <p><strong>Combo:</strong> ${combo.label}</p>
+          <p><strong>Combo:</strong> ${combo.label}${combo.giftQty ? " — tặng thêm 1 áo giữ nhiệt" : ""}</p>
           <p><strong>Chi tiết size / màu:</strong><br/>${variantLines}</p>
           <p><strong>Ghi chú:</strong> ${order.note || "Không có"}</p>
           <p><strong>Tổng thu COD:</strong> ${formatVND(combo.total)}</p>

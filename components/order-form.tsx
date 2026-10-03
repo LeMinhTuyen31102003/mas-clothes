@@ -4,7 +4,17 @@ import { useActionState, useEffect, useRef, useState } from "react";
 import { ChevronDown, MapPin, Phone, User, CheckCircle2, X } from "lucide-react";
 import { submitOrder } from "@/app/actions";
 import { initialOrderFormState, type OrderFieldErrors } from "@/lib/order-state";
-import { COLORS, COMBOS, SIZES, formatVND, type ColorId, type ComboKey, type Size } from "@/lib/pricing";
+import {
+  COLORS,
+  COMBOS,
+  SIZES,
+  formatVND,
+  variantCount,
+  variantLineLabel,
+  type ColorId,
+  type ComboKey,
+  type Size,
+} from "@/lib/pricing";
 
 type Variant = { size: Size; color: ColorId };
 
@@ -31,7 +41,7 @@ function buildVariants(qty: number, prev: Variant[]): Variant[] {
 export function OrderForm() {
   const [state, formAction, isPending] = useActionState(submitOrder, initialOrderFormState);
   const [comboKey, setComboKey] = useState<ComboKey>("2");
-  const [variants, setVariants] = useState<Variant[]>(() => buildVariants(COMBOS["2"].qty, []));
+  const [variants, setVariants] = useState<Variant[]>(() => buildVariants(variantCount("2"), []));
   const [dismissed, setDismissed] = useState(false);
 
   const fullNameRef = useRef<HTMLInputElement>(null);
@@ -48,6 +58,17 @@ export function OrderForm() {
   }, [isPending]);
 
   useEffect(() => {
+    function onSelect(event: Event) {
+      const key = (event as CustomEvent<string>).detail;
+      if (key !== "1" && key !== "2") return;
+      setComboKey(key);
+      setVariants((prev) => buildVariants(variantCount(key), prev));
+    }
+    window.addEventListener("mas-select-combo", onSelect);
+    return () => window.removeEventListener("mas-select-combo", onSelect);
+  }, []);
+
+  useEffect(() => {
     if (!fieldErrors) return;
     const refs = { fullName: fullNameRef, phone: phoneRef, address: addressRef, variants: variantsRef };
     const firstInvalid = FIELD_ORDER.find((key) => fieldErrors[key]);
@@ -59,7 +80,7 @@ export function OrderForm() {
 
   function handleComboChange(key: ComboKey) {
     setComboKey(key);
-    setVariants((prev) => buildVariants(COMBOS[key].qty, prev));
+    setVariants((prev) => buildVariants(variantCount(key), prev));
   }
 
   function updateVariant<K extends keyof Variant>(index: number, field: K, value: Variant[K]) {
@@ -67,7 +88,7 @@ export function OrderForm() {
   }
 
   return (
-    <section id="order" className="relative bg-surface px-5 py-12 sm:px-8">
+    <section id="order" className="relative scroll-mt-20 bg-surface px-5 pb-28 pt-12 sm:scroll-mt-6 sm:px-8 sm:pb-12">
       <div className="mx-auto max-w-lg">
         <h2 className="mb-1.5 text-center font-display text-3xl font-semibold text-ink">
           Thông Tin Đặt Hàng
@@ -121,30 +142,44 @@ export function OrderForm() {
             </div>
           </Field>
 
-          <Field label="Chọn combo">
-            <div className="flex gap-2">
-              {(Object.keys(COMBOS) as ComboKey[]).map((key) => (
-                <button
-                  key={key}
-                  type="button"
-                  onClick={() => handleComboChange(key)}
-                  className={`h-11 flex-1 rounded-lg text-[13px] font-semibold transition-colors ${
-                    comboKey === key
-                      ? "bg-accent text-white"
-                      : "border border-line text-ink-muted hover:border-accent-soft"
-                  }`}
-                >
-                  {COMBOS[key].qty} Áo
-                </button>
-              ))}
+          <Field label="Chọn gói">
+            <div className="grid grid-cols-2 gap-2">
+              {(["2", "1"] as ComboKey[]).map((key) => {
+                const item = COMBOS[key];
+                const selected = comboKey === key;
+                return (
+                  <button
+                    key={key}
+                    type="button"
+                    onClick={() => handleComboChange(key)}
+                    className={`rounded-2xl border-2 p-3 text-left transition-colors ${
+                      selected ? "border-sale bg-sale-soft shadow-[0_10px_22px_-14px_rgba(225,6,0,0.8)]" : "border-line bg-paper"
+                    }`}
+                  >
+                    <span
+                      className={`inline-flex rounded-full px-2 py-0.5 text-[10px] font-extrabold tracking-wide ${
+                        selected ? "bg-sale text-white" : "bg-paper-alt text-ink-muted"
+                      }`}
+                    >
+                      {item.tag}
+                    </span>
+                    <div className="mt-2 text-[13px] font-extrabold text-ink">{item.label}</div>
+                    <div className="text-lg font-extrabold leading-tight text-sale">{formatVND(item.total)}</div>
+                    <div className="text-[11px] text-ink-faint line-through">{formatVND(item.compareAt)}</div>
+                  </button>
+                );
+              })}
             </div>
           </Field>
 
-          <Field label="Size & màu sắc cho từng áo" error={fieldErrors?.variants}>
+          <Field label="Size cho từng món" error={fieldErrors?.variants}>
+            <p className="mb-2 text-[12px] font-semibold text-ink-muted">Màu {COLORS[0].label} · áo và quần cùng size</p>
             <div ref={variantsRef} tabIndex={-1} className="flex flex-col gap-2 outline-none">
               {variants.map((variant, i) => (
                 <div key={i} className="flex items-center gap-2">
-                  <span className="w-11 flex-none text-[11.5px] text-ink-faint">Áo {i + 1}</span>
+                  <span className="w-16 flex-none text-[12px] font-semibold text-ink">
+                    {variantLineLabel(comboKey, i)}
+                  </span>
 
                   <div className="relative flex-1">
                     <select
@@ -155,21 +190,6 @@ export function OrderForm() {
                       {SIZES.map((s) => (
                         <option key={s} value={s}>
                           Size {s}
-                        </option>
-                      ))}
-                    </select>
-                    <ChevronDown size={14} className="pointer-events-none absolute right-2.5 top-1/2 -translate-y-1/2 text-ink-faint" />
-                  </div>
-
-                  <div className="relative flex-1">
-                    <select
-                      value={variant.color}
-                      onChange={(e) => updateVariant(i, "color", e.target.value as ColorId)}
-                      className="h-11 w-full appearance-none rounded-lg border border-line bg-paper pl-3 pr-8 text-[13px] text-ink focus:border-accent focus:outline-none"
-                    >
-                      {COLORS.map((c) => (
-                        <option key={c.id} value={c.id}>
-                          {c.label}
                         </option>
                       ))}
                     </select>
@@ -189,21 +209,29 @@ export function OrderForm() {
             />
           </Field>
 
-          <div className="rounded-2xl bg-accent-tint px-4.5 py-4">
+          <div className="rounded-2xl border border-[#ffd0c8] bg-sale-soft px-4 py-4">
             <div className="mb-2 flex items-center justify-between text-[13px] text-ink-muted">
-              <span>Tạm tính</span>
+              <span>Giá gốc</span>
+              <span className="line-through">{formatVND(combo.compareAt)}</span>
+            </div>
+            <div className="mb-2 flex items-center justify-between text-[13px] text-ink-muted">
+              <span>Giá flash sale</span>
               <span>{formatVND(combo.subtotal)}</span>
             </div>
-            <div className="mb-3 flex items-center justify-between text-[13px] text-ink-muted">
+            <div className="mb-2 flex items-center justify-between text-[13px] text-ink-muted">
               <span>Phí vận chuyển</span>
-              <span className={combo.freeship ? "font-semibold text-accent-dark" : ""}>
-                {combo.freeship ? "Miễn phí" : formatVND(combo.shipping)}
-              </span>
+              <span className="font-extrabold text-sale">Miễn phí</span>
             </div>
-            <div className="mb-3 h-px bg-accent-soft" />
+            {combo.giftQty > 0 && (
+              <div className="mb-2 flex items-center justify-between text-[13px] text-ink-muted">
+                <span>Quà tặng</span>
+                <span className="font-extrabold text-sale">1 áo giữ nhiệt</span>
+              </div>
+            )}
+            <div className="mb-3 h-px bg-[#ffd0c8]" />
             <div className="flex items-baseline justify-between">
-              <span className="text-sm font-bold text-ink">Tổng thanh toán</span>
-              <span className="font-display text-2xl font-bold text-accent-dark">{formatVND(combo.total)}</span>
+              <span className="text-sm font-extrabold text-ink">Tổng thanh toán</span>
+              <span className="text-3xl font-extrabold text-sale">{formatVND(combo.total)}</span>
             </div>
           </div>
 
@@ -211,16 +239,17 @@ export function OrderForm() {
             <p className="rounded-lg bg-red-50 px-3.5 py-2.5 text-[12.5px] text-red-700">{state.error}</p>
           )}
 
-          <button
-            type="submit"
-            disabled={isPending}
-            className="h-13 rounded-xl bg-accent text-[15px] font-bold text-white shadow-[0_10px_24px_-8px_var(--color-accent-dark)] transition-opacity disabled:opacity-60"
-          >
-            {isPending ? "Đang gửi đơn..." : "Đặt Hàng Ngay"}
+          <button type="submit" disabled={isPending} className="btn-buy w-full">
+            <span className="flex flex-col items-center leading-tight">
+              <span>{isPending ? "ĐANG GỬI ĐƠN..." : "ĐẶT HÀNG NGAY"}</span>
+              {!isPending && (
+                <span className="mt-0.5 text-[11px] font-bold tracking-normal">
+                  {formatVND(combo.total)} · Miễn phí ship{combo.giftQty > 0 ? " · Tặng 1 áo" : ""}
+                </span>
+              )}
+            </span>
           </button>
-          <p className="-mt-2 text-center text-[11.5px] text-ink-faint">
-            Thanh toán khi nhận hàng (COD)
-          </p>
+          <p className="-mt-2 text-center text-[11.5px] text-ink-faint">Thanh toán khi nhận hàng (COD)</p>
         </form>
       </div>
 

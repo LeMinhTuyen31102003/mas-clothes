@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Zap } from "lucide-react";
+import { Flame } from "lucide-react";
 
 function getSecondsUntilMidnight(): number {
   const now = new Date();
@@ -10,11 +10,15 @@ function getSecondsUntilMidnight(): number {
   return Math.max(0, Math.floor((midnight.getTime() - now.getTime()) / 1000));
 }
 
-function formatDuration(totalSeconds: number): string {
-  const h = Math.floor(totalSeconds / 3600);
-  const m = Math.floor((totalSeconds % 3600) / 60);
-  const s = totalSeconds % 60;
-  return [h, m, s].map((n) => String(n).padStart(2, "0")).join(":");
+function Digit({ value, label }: Readonly<{ value: string; label: string }>) {
+  return (
+    <div className="flex flex-col items-center">
+      <span className="min-w-11 rounded-md bg-white px-2 py-1 text-center text-lg font-extrabold tabular-nums text-sale shadow-[0_3px_0_rgba(0,0,0,0.18)]">
+        {value}
+      </span>
+      <span className="mt-1 text-[10px] font-semibold uppercase tracking-wide text-white/85">{label}</span>
+    </div>
+  );
 }
 
 export function CountdownBanner() {
@@ -31,19 +35,31 @@ export function CountdownBanner() {
     return () => clearInterval(id);
   }, []);
 
+  const total = seconds ?? 0;
+  const hours = String(Math.floor(total / 3600)).padStart(2, "0");
+  const minutes = String(Math.floor((total % 3600) / 60)).padStart(2, "0");
+  const secs = String(total % 60).padStart(2, "0");
+
   return (
-    <div className="flex items-center justify-center gap-2 bg-accent-dark px-4 py-2.5 text-center text-xs font-semibold tracking-wide text-white sm:text-sm">
-      <Zap size={14} className="flex-none fill-amber-200 text-amber-200 animate-pulse" />
-      <span>
-        ƯU ĐÃI HÔM NAY — Mua 3 áo chỉ 288.000đ, freeship
-        {seconds !== null && (
-          <>
-            {" "}
-            · Kết thúc sau{" "}
-            <span className="font-display font-bold tabular-nums">{formatDuration(seconds)}</span>
-          </>
-        )}
-      </span>
+    <div className="bg-sale text-white">
+      <div className="mx-auto flex max-w-5xl flex-col items-center gap-3 px-4 py-3.5 sm:flex-row sm:justify-between sm:py-4">
+        <div className="text-center sm:text-left">
+          <p className="flex items-center justify-center gap-1.5 text-[13px] font-extrabold tracking-wide sm:justify-start sm:text-[15px]">
+            <Flame size={16} className="fill-amber-300 text-amber-300" />
+            ĐẠI TIỆC FLASH SALE — GIẢM SỐC HÔM NAY
+          </p>
+          <p className="mt-1 text-[12px] font-semibold text-white/92 sm:text-[13px]">
+            219K còn 139K · Combo 2 bộ 229K tặng 1 áo · Freeship
+          </p>
+        </div>
+        <div className="flex items-end gap-1.5" aria-label="Thời gian còn lại trong hôm nay">
+          <Digit value={seconds === null ? "--" : hours} label="Giờ" />
+          <span className="pb-5 text-lg font-extrabold">:</span>
+          <Digit value={seconds === null ? "--" : minutes} label="Phút" />
+          <span className="pb-5 text-lg font-extrabold">:</span>
+          <Digit value={seconds === null ? "--" : secs} label="Giây" />
+        </div>
+      </div>
     </div>
   );
 }

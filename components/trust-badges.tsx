@@ -8,23 +8,23 @@ const ITEMS = [
   },
   {
     icon: Undo2,
-    title: "Đổi Trả Miễn Phí",
+    title: "Đổi Trả Nếu Lỗi",
     desc: "Đổi trả nhanh chóng nếu sản phẩm lỗi",
   },
   {
     icon: Ruler,
-    title: "Chuẩn Form Dáng",
-    desc: "Co giãn 4 chiều, tôn dáng mọi vóc người",
+    title: "Co Giãn Linh Hoạt",
+    desc: "Ôm dáng, dễ mặc ở nhà, đi chơi, đi làm",
   },
   {
     icon: Sparkles,
-    title: "Chất Liệu Cao Cấp",
-    desc: "Vải mềm mịn, lên form đẹp, bền màu",
+    title: "Giữ Nhiệt 37°C",
+    desc: "Mềm mại, khóa ẩm, chống tĩnh điện",
   },
   {
     icon: Truck,
-    title: "Giao Toàn Quốc",
-    desc: "Nhận hàng nhanh, thanh toán khi giao",
+    title: "Miễn Phí Ship",
+    desc: "Giao toàn quốc, thanh toán khi nhận",
   },
 ];
 
