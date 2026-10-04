@@ -8,7 +8,7 @@ export function SiteFooter() {
       <div className="mx-auto max-w-3xl">
         <Logo size={34} tone="light" />
         <p className="mt-3 max-w-xs text-[12.5px] leading-relaxed text-[#B7ACA2]">
-          Áo giữ nhiệt nữ — mỏng nhẹ, ôm dáng, ấm áp. Flash sale 139K, freeship.
+          Bộ giữ nhiệt nữ, áo cổ cao kèm quần dài. Flash sale 139K, freeship.
         </p>
 
         <div className="mt-6 flex items-center gap-2.5">

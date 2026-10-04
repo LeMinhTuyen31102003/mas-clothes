@@ -5,10 +5,10 @@ export function ProductGallery() {
   return (
     <section className="bg-surface px-5 py-12 sm:px-8">
       <div className="mx-auto max-w-3xl">
-        <p className="mb-2 text-center text-xs font-extrabold tracking-[0.16em] text-sale">ÁO GIỮ NHIỆT NỮ</p>
-        <h2 className="mb-8 text-center font-display text-3xl font-semibold text-ink">Áo Cổ Cao Giữ Ấm</h2>
+        <p className="mb-2 text-center text-xs font-extrabold tracking-[0.16em] text-sale">BỘ GIỮ NHIỆT NỮ</p>
+        <h2 className="mb-8 text-center font-display text-3xl font-semibold text-ink">Áo Cổ Cao + Quần Dài</h2>
 
-        <div className="mx-auto grid max-w-md gap-4">
+        <div className="grid gap-4 sm:grid-cols-2">
           {PRODUCT_PHOTOS.map((item) => (
             <div key={item.src} className="overflow-hidden rounded-2xl border border-line bg-white">
               <div className="relative aspect-[4/5]">

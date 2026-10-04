@@ -50,7 +50,7 @@ export function CountdownBanner() {
             <Flame size={18} className="flame-float flame-float-late fill-amber-300 text-amber-300" />
           </p>
           <p className="mt-1 text-[12px] font-semibold text-white/92 sm:text-[13px]">
-            219K còn 139K · Combo 2 áo 229K tặng 1 áo · Freeship
+            219K còn 139K · Combo 2 bộ 229K tặng 1 áo · Freeship
           </p>
         </div>
         <div className="flex items-end gap-1.5" aria-label="Thời gian còn lại trong hôm nay">

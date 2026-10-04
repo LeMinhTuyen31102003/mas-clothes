@@ -32,7 +32,7 @@ export function SizeGuide() {
           </div>
         </div>
         <p className="mt-3 text-center text-[11.5px] text-ink-faint">
-          Chọn size cho từng áo. Combo 2 áo được chọn size riêng cho áo tặng. Số đo mang tính tham khảo,
+          Áo và quần trong một bộ cùng size. Combo 2 bộ chọn size riêng cho từng bộ và áo tặng. Số đo mang tính tham khảo,
           dáng người khác nhau có thể lệch nhẹ.
         </p>
       </div>

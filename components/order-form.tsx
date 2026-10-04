@@ -8,6 +8,7 @@ import {
   COLORS,
   COMBOS,
   SIZES,
+  formatSizeLabel,
   formatVND,
   variantCount,
   variantLineLabel,
@@ -172,8 +173,10 @@ export function OrderForm() {
             </div>
           </Field>
 
-          <Field label="Size cho từng áo" error={fieldErrors?.variants}>
-            <p className="mb-2 text-[12px] font-semibold text-ink-muted">Màu {COLORS[0].label}</p>
+          <Field label="Size cho từng bộ" error={fieldErrors?.variants}>
+            <p className="mb-2 text-[12px] font-semibold text-ink-muted">
+              Áo và quần cùng size · Màu {COLORS[0].label}
+            </p>
             <div ref={variantsRef} tabIndex={-1} className="flex flex-col gap-2 outline-none">
               {variants.map((variant, i) => (
                 <div key={i} className="flex items-center gap-2">
@@ -189,7 +192,7 @@ export function OrderForm() {
                     >
                       {SIZES.map((s) => (
                         <option key={s} value={s}>
-                          Size {s}
+                          {formatSizeLabel(s)}
                         </option>
                       ))}
                     </select>

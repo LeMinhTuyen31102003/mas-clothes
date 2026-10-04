@@ -2,7 +2,7 @@
 
 import { Resend } from "resend";
 import { orderSchema, type OrderInput } from "@/lib/schema";
-import { COLORS, COMBOS, formatVND, variantLineLabel } from "@/lib/pricing";
+import { COLORS, COMBOS, formatSizeLabel, formatVND, variantLineLabel } from "@/lib/pricing";
 import type { OrderFieldErrors, OrderFormState } from "@/lib/order-state";
 
 export async function submitOrder(
@@ -63,7 +63,7 @@ export async function submitOrder(
     const variantLines = order.variants
       .map((v, i) => {
         const color = COLORS.find((c) => c.id === v.color)?.label ?? v.color;
-        return `${variantLineLabel(order.combo, i)}: Size ${v.size} — Màu ${color}`;
+        return `${variantLineLabel(order.combo, i)}: ${formatSizeLabel(v.size)} — Màu ${color}`;
       })
       .join("<br/>");
 

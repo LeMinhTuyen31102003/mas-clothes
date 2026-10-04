@@ -46,7 +46,7 @@ export function ComboPricing() {
               {combo.giftNote && <div className="mt-1 text-[13px] font-bold text-ink">{combo.giftNote}</div>}
 
               <BuyLink combo={key} className="btn-buy btn-buy-lg mt-5 w-full">
-                {combo.highlight ? "CHỌN COMBO NÀY" : "MUA 1 ÁO"}
+                {combo.highlight ? "CHỌN COMBO NÀY" : "MUA 1 BỘ"}
               </BuyLink>
             </div>
           ))}

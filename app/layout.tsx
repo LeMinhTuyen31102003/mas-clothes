@@ -17,9 +17,9 @@ const cormorantGaramond = Cormorant_Garamond({
 });
 
 export const metadata: Metadata = {
-  title: "Flash Sale Áo Giữ Nhiệt Nữ 139K | M.A.S Clothes",
+  title: "Flash Sale Bộ Giữ Nhiệt Nữ 139K | M.A.S Clothes",
   description:
-    "Áo giữ nhiệt nữ giá gốc 219.000đ, flash sale còn 139.000đ miễn phí ship. Combo 2 áo 229.000đ tặng thêm 1 áo. Thanh toán khi nhận hàng.",
+    "Bộ giữ nhiệt nữ gồm áo cổ cao và quần dài, giá gốc 219.000đ, flash sale còn 139.000đ miễn phí ship. Combo 2 bộ 229.000đ tặng thêm 1 áo. Thanh toán khi nhận hàng.",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
